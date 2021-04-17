@@ -1,0 +1,65 @@
+Importing necessory libraries
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score,r2_score
+import numpy as np
+from sklearn.metrics import mean_squared_error
+
+Loading the data
+
+stud_data=pd.read_csv('http://bit.ly/w-data')
+
+print(stud_data.head())                                #printing the first 5 columns of the data
+
+len(stud_data)
+
+stud_data.info()
+
+stud_data.describe()
+
+Data Visualization
+
+X=stud_data[['Hours']]
+y=stud_data[['Scores']]
+
+plt.plot(X,y,'bo')
+plt.xlabel('Study Hours')
+plt.ylabel('Scores')
+plt.title('Study Hours v/s Scores',fontsize=20,color='red')
+
+Splitting the data into train amnd test set
+
+x_train=X[:20]
+x_test=X[:-20]
+y_train=y[:20]
+y_test=y[:-20]
+
+Build the model
+
+model=LinearRegression()
+
+Train the model
+
+model.fit(x_train,y_train)
+
+model.coef_                        #coefficients of the linear model
+
+model.intercept_                   #intercept point for the model
+
+Predicting the scores
+
+y_pred=model.predict(x_test)
+pred_score=model.predict(X)
+
+plt.subplots()
+plt.plot(X,y,'bo',X,pred_score,'r--')
+plt.subplots()
+plt.plot(x_test,y_test,'bo',x_test,y_pred,'r--')
+
+Predicting the score of a student who studies 9.25 hours per day
+
+model.predict([[9.25]])
+So the student who studies 9.25 hours per day will have a chance to score 91 marks in his exam
